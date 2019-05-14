@@ -1,0 +1,25 @@
+{
+  "name": "ecosia-language-switcher",
+  "version": "0.1.0",
+  "description": "Ecosia language switcher",
+  "main": "index.js",
+  "author": "Matthieu Bergel <hello@matthieubergel.org>",
+  "license": "MIT",
+  "scripts": {
+    "build": "webpack --progress --hide-modules --watch"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.4",
+    "babel-loader": "^8.0.6",
+    "babel-preset-env": "^1.7.0",
+    "copy-webpack-plugin": "^5.0.3",
+    "path": "^0.12.7",
+    "vue-loader": "^15.7.0",
+    "vue-template-compiler": "^2.6.10",
+    "webpack": "^4.31.0",
+    "webpack-cli": "^3.3.2"
+  },
+  "dependencies": {
+    "vue": "^2.6.10"
+  }
+}
