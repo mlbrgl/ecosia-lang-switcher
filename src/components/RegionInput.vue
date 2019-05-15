@@ -1,9 +1,10 @@
 <template>
   <input
     :value="value"
-    @keydown.up="$emit('up', $event.target.value)"
-    @keydown.down="$emit('down', $event.target.value)"
     @input="$emit('input', $event.target.value)"
+    @keydown.up="$emit('up')"
+    @keydown.down="$emit('down')"
+    @keydown.enter="$emit('enter')"
   >
 </template>
 

@@ -1,16 +1,16 @@
 <template>
-  <li :class="{[$style.active]: active}">{{region.name}}</li>
+  <li :class="{[$style.highlighted]: highlighted}">{{region.name}}</li>
 </template>
 
 <script>
 export default {
   name: "RegionItem",
-  props: ["region", "active"]
+  props: ["region", "highlighted", "selected"]
 };
 </script>
 
 <style module>
-.active {
+.highlighted {
   font-weight: bold;
 }
 </style>

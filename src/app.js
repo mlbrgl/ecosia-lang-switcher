@@ -65,6 +65,9 @@ const html = `
 </ul>
 `;
 
+const cookieString =
+  "a=1:as=1:cs=1:dt=pc:f=i:fr=0:fs=0:l=en:lt=1557900448:mc=en-us:nf=1:nt=0:t=83:tt=na:tu=auto:wu=auto:ma=1";
+
 const parser = new DOMParser();
 const doc = parser.parseFromString(html, "text/html");
 const matches = doc.querySelectorAll("li");
@@ -76,5 +79,5 @@ const regions = matchesArr.map(item => ({
 }));
 
 new Vue({
-  render: h => h(App, { props: { regions } })
+  render: h => h(App, { props: { regions, cookieString } })
 }).$mount(".js-select-market");
