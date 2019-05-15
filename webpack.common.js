@@ -27,6 +27,18 @@ module.exports = {
           presets: ["@babel/preset-env"]
         },
         exclude: file => /node_modules/.test(file) && !/\.vue\.js/.test(file)
+      },
+      {
+        test: /\.css$/,
+        use: [
+          "vue-style-loader",
+          {
+            loader: "css-loader",
+            options: {
+              modules: true
+            }
+          }
+        ]
       }
     ]
   },

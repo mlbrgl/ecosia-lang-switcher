@@ -1,6 +1,11 @@
 <template>
   <ul>
-    <RegionItem v-for="region in filteredRegions" :key="region.locale" :region="region"></RegionItem>
+    <RegionItem
+      v-for="(region, index) in filteredRegions"
+      :key="region.locale"
+      :region="region"
+      :active="index === highlightedIndex"
+    ></RegionItem>
   </ul>
 </template>
 
@@ -9,7 +14,7 @@ import RegionItem from "./RegionItem.vue";
 
 export default {
   name: "RegionList",
-  props: ["regions", "filter"],
+  props: ["regions", "filter", "highlightedIndex"],
   computed: {
     filteredRegions: function() {
       return this.regions.filter(region =>

@@ -1,5 +1,10 @@
 <template>
-  <input v-bind:value="value" v-on:input="$emit('input', $event.target.value)">
+  <input
+    :value="value"
+    @:input="$emit('input', $event.target.value)"
+    @keydown.up="$emit('up', $event.target.value)"
+    @keydown.down="$emit('down', $event.target.value)"
+  >
 </template>
 
 <script>

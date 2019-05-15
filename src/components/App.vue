@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <h1>{{ value }}</h1>
-    <RegionInput v-model="value"/>
-    <RegionsList :regions="regions" :filter="value"/>
+    <RegionInput v-model="value" @up="up" @down="down"/>
+    <RegionsList :regions="regions" :filter="value" :highlightedIndex="highlightedIndex"/>
   </div>
 </template>
 
@@ -15,8 +15,21 @@ export default {
   props: ["regions"],
   data() {
     return {
-      value: ""
+      value: "",
+      highlightedIndex: 0
     };
+  },
+  methods: {
+    up: function() {
+      return this.highlightedIndex > 0
+        ? (this.highlightedIndex -= 1)
+        : this.highlightedIndex;
+    },
+    down: function() {
+      return this.highlightedIndex < this.regions.length
+        ? (this.highlightedIndex += 1)
+        : this.highlightedIndex;
+    }
   },
   components: {
     RegionInput,
