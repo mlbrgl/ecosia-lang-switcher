@@ -46,28 +46,27 @@ export default {
       }
     },
     enter: function() {
-      console.log(
-        this.cookieString
-          .split(":")
-          .map(paramString => {
-            const [name, value] = paramString.split("=");
-            return {
-              name,
-              value:
-                name === "mc"
-                  ? this.regions[this.highlightedIndex].locale
-                  : value
-            };
-          })
-          .reduce((updatedCookieString, param) => {
-            const separator = updatedCookieString === "" ? "" : ":";
-            return `${updatedCookieString}${separator}${param.name}=${
-              param.value
-            }`;
-          }, "")
-      );
+      const updatedCookieString = this.cookieString
+        .split(":")
+        .map(paramString => {
+          const [name, value] = paramString.split("=");
+          return {
+            name,
+            value:
+              name === "mc" ? this.regions[this.highlightedIndex].locale : value
+          };
+        })
+        .reduce((accCookieString, param) => {
+          const separator = accCookieString === "" ? "" : ":";
+          return `${accCookieString}${separator}${param.name}=${param.value}`;
+        }, "");
 
-      // location.reload();
+      chrome.runtime.sendMessage(
+        { type: "set", cookieString: updatedCookieString },
+        function(response) {
+          location.reload();
+        }
+      );
     }
   },
   components: {
