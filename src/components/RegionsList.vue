@@ -4,7 +4,7 @@
     <ul>
       <RegionItem
         v-for="(region, index) in filteredRegions"
-        :key="region.locale"
+        :key="region.id"
         :region="region"
         :highlighted="index === highlightedIndex"
       ></RegionItem>
@@ -25,9 +25,9 @@ export default {
       );
     },
     filteredRegions: function() {
-      return this.regions.filter(region =>
-        region.name.toLowerCase().match(this.filter.toLowerCase())
-      );
+      return this.regions.filter(region => {
+        return region.name.toLowerCase().match(this.filter.toLowerCase());
+      });
     }
   },
   components: {
