@@ -24,7 +24,7 @@ module.exports = {
         test: /\.js?$/,
         loader: "babel-loader",
         options: {
-          presets: ["env"]
+          presets: ["@babel/preset-env"]
         },
         exclude: file => /node_modules/.test(file) && !/\.vue\.js/.test(file)
       }
