@@ -59,7 +59,7 @@ export default {
       }
     },
     onDown: function() {
-      if (this.highlightedIndex < this.regions.length) {
+      if (this.highlightedIndex < this.filteredRegions.length - 1) {
         this.highlightedIndex += 1;
       }
     },
