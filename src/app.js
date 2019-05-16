@@ -13,8 +13,13 @@ chrome.runtime.sendMessage({ type: "get" }, function(response) {
       id: index
     })
   );
+  const moreParametersElement = document.querySelector(".flags-dropdown-more");
+  const moreParameters = {
+    href: moreParametersElement.getAttribute("href"),
+    text: moreParametersElement.innerText
+  };
 
   new Vue({
-    render: h => h(App, { props: { regions, cookieString } })
+    render: h => h(App, { props: { regions, cookieString, moreParameters } })
   }).$mount(".js-select-market");
 });

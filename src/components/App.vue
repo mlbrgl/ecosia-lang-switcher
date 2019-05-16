@@ -15,6 +15,7 @@
       :highlightedIndex="highlightedIndex"
       :selectedRegion="selectedRegion"
     />
+    <a :href="moreParameters.href" class="flags-dropdown-more">{{moreParameters.text}}</a>
   </div>
 </template>
 
@@ -24,7 +25,7 @@ import RegionsList from "./RegionsList.vue";
 
 export default {
   name: "App",
-  props: ["regions", "cookieString"],
+  props: ["regions", "cookieString", "moreParameters"],
   data() {
     return {
       value: "",
