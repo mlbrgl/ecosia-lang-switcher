@@ -5,7 +5,7 @@ Vue.config.productionTip = false;
 
 chrome.runtime.sendMessage({ type: "get" }, function(response) {
   const cookieString = response.cookieString;
-  const regions = [...document.querySelectorAll("ul.flags-dropdown-list li")].map(
+  const regions = [...document.querySelector("ul.flags-dropdown-list").querySelectorAll("li")].map(
     (item, index) => ({
       locale: item.getAttribute("data-selected"),
       name: item.innerText,

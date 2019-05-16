@@ -10,10 +10,10 @@
       @reset="onReset"
     />
     <RegionsList
-      :regions="regions"
+      :regions="filteredRegions"
       :filter="value"
       :highlightedIndex="highlightedIndex"
-      :selectedLocale="selectedLocale"
+      :selectedRegion="selectedRegion"
     />
   </div>
 </template>
@@ -39,6 +39,16 @@ export default {
           return param.startsWith("mc=");
         })
         .substr(3));
+    },
+    selectedRegion: function() {
+      return this.regions.filter(
+        region => region.locale === this.selectedLocale
+      )[0];
+    },
+    filteredRegions: function() {
+      return this.regions.filter(region => {
+        return region.name.toLowerCase().match(this.value.toLowerCase());
+      });
     }
   },
   methods: {
@@ -64,7 +74,9 @@ export default {
           return {
             name,
             value:
-              name === "mc" ? this.regions[this.highlightedIndex].locale : value
+              name === "mc"
+                ? this.filteredRegions[this.highlightedIndex].locale
+                : value
           };
         })
         .reduce((accCookieString, param) => {
