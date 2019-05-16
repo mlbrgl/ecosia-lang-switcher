@@ -1,5 +1,4 @@
 {
-  "name": "Ecosia language switcher",
   "manifest_version": 2,
   "content_scripts": [
     {
