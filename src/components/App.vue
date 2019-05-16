@@ -1,7 +1,13 @@
 <template>
-  <div id="app">
-    <h1>{{ value }}</h1>
-    <RegionInput v-model="value" @up="up" @down="down" @enter="enter"/>
+  <div class="js-select-market dropdown-menu flags-dropdown-content" data-update="mc">
+    <div class="flags-dropdown-arrow"></div>
+    <RegionInput
+      :value="value"
+      @input="onInput($event)"
+      @up="onUp"
+      @down="onDown"
+      @enter="onEnter"
+    />
     <RegionsList
       :regions="regions"
       :filter="value"
@@ -35,17 +41,21 @@ export default {
     }
   },
   methods: {
-    up: function() {
+    onUp: function() {
       if (this.highlightedIndex > 0) {
         this.highlightedIndex -= 1;
       }
     },
-    down: function() {
+    onDown: function() {
       if (this.highlightedIndex < this.regions.length) {
         this.highlightedIndex += 1;
       }
     },
-    enter: function() {
+    onInput: function(event) {
+      this.value = event;
+      this.highlightedIndex = 0;
+    },
+    onEnter: function() {
       const updatedCookieString = this.cookieString
         .split(":")
         .map(paramString => {
