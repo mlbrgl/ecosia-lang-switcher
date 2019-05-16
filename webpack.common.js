@@ -1,6 +1,4 @@
 const VueLoaderPlugin = require("vue-loader/lib/plugin");
-const CopyPlugin = require("copy-webpack-plugin");
-const CleanWebpackPlugin = require("clean-webpack-plugin");
 
 module.exports = {
   entry: {
@@ -42,27 +40,5 @@ module.exports = {
       }
     ]
   },
-  plugins: [
-    new CleanWebpackPlugin(),
-    new VueLoaderPlugin(),
-    new CopyPlugin(
-      [
-        {
-          from: "src/manifest.json",
-          transform: function(content, path) {
-            // generates the manifest file using the package.json informations
-            return Buffer.from(
-              JSON.stringify({
-                description: process.env.npm_package_description,
-                name: process.env.npm_package_description,
-                version: process.env.npm_package_version,
-                ...JSON.parse(content.toString())
-              })
-            );
-          }
-        }
-      ],
-      { copyUnmodified: true }
-    )
-  ]
+  plugins: [new VueLoaderPlugin()]
 };

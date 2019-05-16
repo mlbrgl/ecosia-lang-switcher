@@ -11,5 +11,8 @@ module.exports = merge(common, {
     contentBase: "./build",
     hot: true
   },
-  plugins: [new CopyPlugin([{ from: "public" }]), new webpack.HotModuleReplacementPlugin()]
+  plugins: [
+    new CopyPlugin([{ from: "public/index.html" }]),
+    new webpack.HotModuleReplacementPlugin()
+  ]
 });
