@@ -1,12 +1,13 @@
 <template>
   <div class="js-select-market dropdown-menu flags-dropdown-content" data-update="mc">
-    <div class="flags-dropdown-arrow"></div>
+    <div class="flags-dropdown-arrow"/>
     <RegionInput
       :value="value"
       @input="onInput($event)"
       @up="onUp"
       @down="onDown"
       @enter="onEnter"
+      @reset="onReset"
     />
     <RegionsList
       :regions="regions"
@@ -77,6 +78,9 @@ export default {
           location.reload();
         }
       );
+    },
+    onReset: function() {
+      this.value = "";
     }
   },
   components: {
