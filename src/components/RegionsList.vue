@@ -1,8 +1,8 @@
 <template>
   <div class="flags-dropdown-body">
     <p class="flags-dropdown-chosen js-select-chosen">
-      <span :class="selectedRegion.class"></span>
-      <strong class="js-selected-text">{{selectedRegion.name}}</strong>
+      <span :class="selectedRegion.class" />
+      <strong class="js-selected-text">{{ selectedRegion.name }}</strong>
     </p>
     <ul class="flags-dropdown-list">
       <RegionItem
@@ -10,19 +10,24 @@
         :key="region.id"
         :region="region"
         :highlighted="index === highlightedIndex"
-      ></RegionItem>
+      />
     </ul>
   </div>
 </template>
 
 <script>
-import RegionItem from "./RegionItem.vue";
+import RegionItem from './RegionItem.vue';
 
 export default {
-  name: "RegionList",
-  props: ["regions", "filter", "highlightedIndex", "selectedRegion"],
+  name: 'RegionList',
   components: {
-    RegionItem
-  }
+    RegionItem,
+  },
+  props: {
+    regions: { type: Object, required: true },
+    filter: { type: String, required: true },
+    highlightedIndex: { type: Number, required: true },
+    selectedRegion: { type: Object, default: () => ({}) },
+  },
 };
 </script>

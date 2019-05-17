@@ -1,6 +1,9 @@
 <template>
-  <div class="js-select-market dropdown-menu flags-dropdown-content" data-update="mc">
-    <div class="flags-dropdown-arrow"/>
+  <div
+    class="js-select-market dropdown-menu flags-dropdown-content"
+    data-update="mc"
+  >
+    <div class="flags-dropdown-arrow" />
     <RegionInput
       :value="value"
       @input="onInput($event)"
@@ -12,93 +15,89 @@
     <RegionsList
       :regions="filteredRegions"
       :filter="value"
-      :highlightedIndex="highlightedIndex"
-      :selectedRegion="selectedRegion"
+      :highlighted-index="highlightedIndex"
+      :selected-region="selectedRegion"
     />
-    <a :href="moreParameters.href" class="flags-dropdown-more">{{moreParameters.text}}</a>
+    <a
+      :href="moreParameters.href"
+      class="flags-dropdown-more"
+    >{{ moreParameters.text }}</a>
   </div>
 </template>
 
 <script>
-import RegionInput from "./RegionInput.vue";
-import RegionsList from "./RegionsList.vue";
+import RegionInput from './RegionInput.vue';
+import RegionsList from './RegionsList.vue';
 
 export default {
-  name: "App",
-  props: ["regions", "cookieString", "moreParameters"],
+  name: 'App',
+  components: {
+    RegionInput,
+    RegionsList,
+  },
+  props: {
+    regions: { type: Object, required: true },
+    cookieString: { type: String, required: true },
+    moreParameters: { type: Object, required: true },
+  },
   data() {
     return {
-      value: "",
-      highlightedIndex: 0
+      value: '',
+      highlightedIndex: 0,
     };
   },
   computed: {
-    selectedLocale: function() {
-      return (this.locale = this.cookieString
-        .split(":")
-        .find(param => {
-          return param.startsWith("mc=");
-        })
-        .substr(3));
+    selectedLocale() {
+      return this.cookieString
+        .split(':')
+        .find(param => param.startsWith('mc='))
+        .substr(3);
     },
-    selectedRegion: function() {
-      return this.regions.filter(
-        region => region.locale === this.selectedLocale
-      )[0];
+    selectedRegion() {
+      return this.regions.filter(region => region.locale === this.selectedLocale)[0];
     },
-    filteredRegions: function() {
-      return this.regions.filter(region => {
-        return region.name.toLowerCase().match(this.value.toLowerCase());
-      });
-    }
+    filteredRegions() {
+      /* eslint-disable-next-line max-len */
+      return this.regions.filter(region => region.name.toLowerCase().match(this.value.toLowerCase()));
+    },
   },
   methods: {
-    onUp: function() {
+    onUp() {
       if (this.highlightedIndex > 0) {
         this.highlightedIndex -= 1;
       }
     },
-    onDown: function() {
+    onDown() {
       if (this.highlightedIndex < this.filteredRegions.length - 1) {
         this.highlightedIndex += 1;
       }
     },
-    onInput: function(event) {
+    onInput(event) {
       this.value = event;
       this.highlightedIndex = 0;
     },
-    onEnter: function() {
+    onEnter() {
       const updatedCookieString = this.cookieString
-        .split(":")
-        .map(paramString => {
-          const [name, value] = paramString.split("=");
+        .split(':')
+        .map((paramString) => {
+          const [name, value] = paramString.split('=');
           return {
             name,
-            value:
-              name === "mc"
-                ? this.filteredRegions[this.highlightedIndex].locale
-                : value
+            value: name === 'mc' ? this.filteredRegions[this.highlightedIndex].locale : value,
           };
         })
         .reduce((accCookieString, param) => {
-          const separator = accCookieString === "" ? "" : ":";
+          const separator = accCookieString === '' ? '' : ':';
           return `${accCookieString}${separator}${param.name}=${param.value}`;
-        }, "");
+        }, '');
 
-      chrome.runtime.sendMessage(
-        { type: "set", cookieString: updatedCookieString },
-        function(response) {
-          location.reload();
-        }
-      );
+      window.chrome.runtime.sendMessage({ type: 'set', cookieString: updatedCookieString }, () => {
+        window.location.reload();
+      });
     },
-    onReset: function() {
-      this.value = "";
-    }
+    onReset() {
+      this.value = '';
+    },
   },
-  components: {
-    RegionInput,
-    RegionsList
-  }
 };
 </script>

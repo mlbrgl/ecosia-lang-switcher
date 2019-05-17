@@ -6,16 +6,33 @@
   "author": "Matthieu Bergel <hello@matthieubergel.org>",
   "license": "MIT",
   "scripts": {
-    "build": "webpack --progress --hide-modules --watch --config webpack.prod.js",
+    "build": "webpack --config webpack.prod.js",
+    "watch": "webpack --progress --hide-modules --watch --config webpack.prod.js",
     "start": "webpack-dev-server --open --config webpack.dev.js"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "browser": true
+    },
+    "extends": [
+      "airbnb-base",
+      "plugin:vue/recommended"
+    ]
   },
   "devDependencies": {
     "@babel/core": "^7.4.4",
     "@babel/preset-env": "^7.4.4",
+    "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.6",
     "clean-webpack-plugin": "^2.0.2",
     "copy-webpack-plugin": "^5.0.3",
     "css-loader": "^2.1.1",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-loader": "^2.1.2",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-vue": "^5.2.2",
     "vue-loader": "^15.7.0",
     "vue-template-compiler": "^2.6.10",
     "webpack": "^4.31.0",

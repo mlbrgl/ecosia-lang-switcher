@@ -1,19 +1,25 @@
 <template>
-  <li :data-selected="region.locale" :class="{[$style.highlighted]: highlighted}">
-    <span :class="`flag ${country}`"></span>
-    {{region.name}}
+  <li
+    :data-selected="region.locale"
+    :class="{ [$style.highlighted]: highlighted }"
+  >
+    <span :class="`flag ${country}`" />
+    {{ region.name }}
   </li>
 </template>
 
 <script>
 export default {
-  name: "RegionItem",
-  props: ["region", "highlighted", "selected"],
+  name: 'RegionItem',
+  props: {
+    region: { type: Object, required: true },
+    highlighted: { type: Boolean, required: true },
+  },
   computed: {
-    country: function() {
-      return this.region.locale.split("-")[1];
-    }
-  }
+    country() {
+      return this.region.locale.split('-')[1];
+    },
+  },
 };
 </script>
 
