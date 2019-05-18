@@ -4,13 +4,15 @@
       <span :class="selected.class" />
       <strong class="js-selected-text">{{ selected.name }}</strong>
     </p>
-    <ul class="flags-dropdown-list">
+    <ul
+      ref="regionItems"
+      class="flags-dropdown-list"
+    >
       <RegionItem
         v-for="(region, index) in regions"
         :key="region.id"
         :region="region"
         :highlighted="index === highlightedIndex"
-        @highlight="highlight"
         @select="$emit('select')"
       />
     </ul>
@@ -31,10 +33,13 @@ export default {
     highlightedIndex: { type: Number, required: true },
     selected: { type: Object, default: () => ({}) },
   },
-  methods: {
-    highlight(region) {
-      this.$emit('highlight', region);
+  computed: {
+    listItemHeight() {
+      return this.$refs.regionItems.querySelector('li').clientHeight;
     },
+  },
+  beforeUpdate() {
+    this.$refs.regionItems.scrollTop = this.listItemHeight * this.highlightedIndex;
   },
 };
 </script>

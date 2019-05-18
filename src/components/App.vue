@@ -17,7 +17,6 @@
       :filter="value"
       :highlighted-index="highlightedIndex"
       :selected="selectedRegion"
-      @highlight="onHighlightRegion"
       @select="onSelectRegion"
     />
     <a
@@ -73,9 +72,6 @@ export default {
       if (this.highlightedIndex < this.filteredRegions.length - 1) {
         this.highlightedIndex += 1;
       }
-    },
-    onHighlightRegion(region) {
-      this.highlightedIndex = this.filteredRegions.findIndex(reg => reg.name === region.name);
     },
     onInput(value) {
       this.value = value;

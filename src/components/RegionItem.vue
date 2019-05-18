@@ -1,8 +1,7 @@
 <template>
   <li
     :data-selected="region.locale"
-    :class="{ [$style.highlighted]: highlighted }"
-    @mouseenter="$emit('highlight', region)"
+    :class="[$style.item, { [$style.highlighted]: highlighted }]"
     @click="$emit('select')"
   >
     <span :class="`flag ${country}`" />
@@ -26,7 +25,11 @@ export default {
 </script>
 
 <style module>
-.highlighted {
-  background-color: lightblue;
+.highlighted,
+.item:hover {
+  background-color: rgb(237, 237, 237);
+}
+.highlighted.item:hover {
+  background-color: rgb(224, 224, 224);
 }
 </style>
