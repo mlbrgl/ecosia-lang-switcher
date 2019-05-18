@@ -78,6 +78,7 @@ export default {
       this.highlightedIndex = 0;
     },
     onSelectRegion(region = this.filteredRegions[this.highlightedIndex]) {
+      this.value = region.name;
       const updatedCookieString = this.cookieString
         .split(':')
         .map((paramString) => {
