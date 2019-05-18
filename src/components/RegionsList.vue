@@ -1,8 +1,8 @@
 <template>
   <div class="flags-dropdown-body">
     <p class="flags-dropdown-chosen js-select-chosen">
-      <span :class="selectedRegion.class" />
-      <strong class="js-selected-text">{{ selectedRegion.name }}</strong>
+      <span :class="selected.class" />
+      <strong class="js-selected-text">{{ selected.name }}</strong>
     </p>
     <ul class="flags-dropdown-list">
       <RegionItem
@@ -10,6 +10,8 @@
         :key="region.id"
         :region="region"
         :highlighted="index === highlightedIndex"
+        @highlight="highlight"
+        @select="$emit('select')"
       />
     </ul>
   </div>
@@ -27,7 +29,12 @@ export default {
     regions: { type: Object, required: true },
     filter: { type: String, required: true },
     highlightedIndex: { type: Number, required: true },
-    selectedRegion: { type: Object, default: () => ({}) },
+    selected: { type: Object, default: () => ({}) },
+  },
+  methods: {
+    highlight(region) {
+      this.$emit('highlight', region);
+    },
   },
 };
 </script>

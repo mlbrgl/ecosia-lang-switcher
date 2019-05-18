@@ -2,6 +2,8 @@
   <li
     :data-selected="region.locale"
     :class="{ [$style.highlighted]: highlighted }"
+    @mouseenter="$emit('highlight', region)"
+    @click="$emit('select')"
   >
     <span :class="`flag ${country}`" />
     {{ region.name }}

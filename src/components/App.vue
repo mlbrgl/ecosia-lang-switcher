@@ -6,17 +6,19 @@
     <div class="flags-dropdown-arrow" />
     <RegionInput
       :value="value"
-      @input="onInput($event)"
+      @input="onInput"
       @up="onUp"
       @down="onDown"
-      @enter="onEnter"
+      @enter="onSelectRegion"
       @reset="onReset"
     />
     <RegionsList
       :regions="filteredRegions"
       :filter="value"
       :highlighted-index="highlightedIndex"
-      :selected-region="selectedRegion"
+      :selected="selectedRegion"
+      @highlight="onHighlightRegion"
+      @select="onSelectRegion"
     />
     <a
       :href="moreParameters.href"
@@ -72,11 +74,14 @@ export default {
         this.highlightedIndex += 1;
       }
     },
-    onInput(event) {
-      this.value = event;
+    onHighlightRegion(region) {
+      this.highlightedIndex = this.filteredRegions.findIndex(reg => reg.name === region.name);
+    },
+    onInput(value) {
+      this.value = value;
       this.highlightedIndex = 0;
     },
-    onEnter() {
+    onSelectRegion() {
       const updatedCookieString = this.cookieString
         .split(':')
         .map((paramString) => {
