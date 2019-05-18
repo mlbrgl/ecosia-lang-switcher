@@ -16,7 +16,7 @@
       :regions="filteredRegions"
       :filter="value"
       :highlighted-index="highlightedIndex"
-      :selected="selectedRegion"
+      :current-region="currentRegion"
       @select="onSelectRegion"
     />
     <a
@@ -37,7 +37,7 @@ export default {
     RegionsList,
   },
   props: {
-    regions: { type: Object, required: true },
+    regions: { type: Array, required: true },
     cookieString: { type: String, required: true },
     moreParameters: { type: Object, required: true },
   },
@@ -54,7 +54,7 @@ export default {
         .find(param => param.startsWith('mc='))
         .substr(3);
     },
-    selectedRegion() {
+    currentRegion() {
       return this.regions.filter(region => region.locale === this.selectedLocale)[0];
     },
     filteredRegions() {
@@ -77,14 +77,14 @@ export default {
       this.value = value;
       this.highlightedIndex = 0;
     },
-    onSelectRegion() {
+    onSelectRegion(region = this.filteredRegions[this.highlightedIndex]) {
       const updatedCookieString = this.cookieString
         .split(':')
         .map((paramString) => {
           const [name, value] = paramString.split('=');
           return {
             name,
-            value: name === 'mc' ? this.filteredRegions[this.highlightedIndex].locale : value,
+            value: name === 'mc' ? region.locale : value,
           };
         })
         .reduce((accCookieString, param) => {

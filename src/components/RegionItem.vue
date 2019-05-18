@@ -2,7 +2,7 @@
   <li
     :data-selected="region.locale"
     :class="[$style.item, { [$style.highlighted]: highlighted }]"
-    @click="$emit('select')"
+    @click="$emit('select', region)"
   >
     <span :class="`flag ${country}`" />
     {{ region.name }}

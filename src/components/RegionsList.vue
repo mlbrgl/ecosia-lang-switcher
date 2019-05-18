@@ -1,8 +1,8 @@
 <template>
   <div class="flags-dropdown-body">
     <p class="flags-dropdown-chosen js-select-chosen">
-      <span :class="selected.class" />
-      <strong class="js-selected-text">{{ selected.name }}</strong>
+      <span :class="currentRegion.class" />
+      <strong class="js-selected-text">{{ currentRegion.name }}</strong>
     </p>
     <ul
       ref="regionItems"
@@ -13,7 +13,7 @@
         :key="region.id"
         :region="region"
         :highlighted="index === highlightedIndex"
-        @select="$emit('select')"
+        @select="selectRegion"
       />
     </ul>
   </div>
@@ -28,10 +28,10 @@ export default {
     RegionItem,
   },
   props: {
-    regions: { type: Object, required: true },
+    regions: { type: Array, required: true },
     filter: { type: String, required: true },
     highlightedIndex: { type: Number, required: true },
-    selected: { type: Object, default: () => ({}) },
+    currentRegion: { type: Object, default: () => ({}) },
   },
   computed: {
     listItemHeight() {
@@ -40,6 +40,11 @@ export default {
   },
   beforeUpdate() {
     this.$refs.regionItems.scrollTop = this.listItemHeight * this.highlightedIndex;
+  },
+  methods: {
+    selectRegion(region) {
+      this.$emit('select', region);
+    },
   },
 };
 </script>
