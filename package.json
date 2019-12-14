@@ -30,7 +30,7 @@
     "css-loader": "2.1.1",
     "eslint": "5.16.0",
     "eslint-config-airbnb-base": "13.1.0",
-    "eslint-loader": "2.1.2",
+    "eslint-loader": "3.0.3",
     "eslint-plugin-import": "2.17.2",
     "eslint-plugin-vue": "5.2.2",
     "vue-loader": "15.7.0",
